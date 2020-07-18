@@ -1,0 +1,24 @@
+
+				ASSINGMENT NO : 2
+			
+			Introducing Relational Databases.
+---------------------------------------------------------------------------------------
+
+Q1) Which field of the Customers table is the primary key?
+
+ans)-> Cnum.
+
+
+Q2) What is the 4 th column of the Customers table?
+
+ans)-> Snum.
+
+Q 3) What is another word for row? For column?
+
+ans)-> Another word for Row is Tuple and for Column is Attribute.
+
+Q 4) Why isn’t it possible to see the first five rows of a table?
+
+ans)->  The reason that RDBMS does this is to speed up the INSERT statement.
+	When you select a table ,the order of rows in the output is depends on the row address.
+	Hence it is not possible to view the first or last 'N' rows of a table.
