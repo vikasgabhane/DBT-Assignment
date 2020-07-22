@@ -1,0 +1,44 @@
+
+			EXERCISE 2
+
+------------------------------------------------------------------
+1. Display the Supplier table in the descending order of CITY.
+
+ans)->	mysql> select * from SUPPLIER order by city desc;
+
+---------------------------------------------------------------------
+2. Display the Part Table in the ascending order of CITY and within the city in
+	the ascending order of Part names.
+
+ans)->	mysql> select * from PARTS order by city desc;
+
+
+-----------------------------------------------------------------------
+3. Display all the Suppliers with a status between 10 and 20.
+
+ans)->	mysql> select * from SUPPLIER where Status between 10 and 20;
+
+-----------------------------------------------------------------------------
+
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15.
+
+ans)->	mysql> select * from PARTS where Weight not between 10 and 15;
+
+----------------------------------------------------------------------
+
+5. Display all the Part names starting with the letter ‘S’.
+
+ans)->	mysql> select Pname from PARTS where Pname like 'S%';
+
+------------------------------------------------------------------
+
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’.
+
+ans)->	mysql> select * from SUPPLIER where City like 'L%';
+
+-----------------------------------------------------------------------------
+7. Display all the Projects, with the third letter in JNAME as ‘n’.
+
+ans)->	mysql> select * from PROJECTS where Jname like '__N%';
+
+------------------------------------------------------------------------------------

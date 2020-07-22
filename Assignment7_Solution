@@ -1,0 +1,45 @@
+				
+				Assignment –7
+
+		Summarizing Data with Aggregate Functions.
+-----------------------------------------------------------------------------------
+
+1) Write a query that counts all orders for October 3.
+
+ans)->	mysql> select count(Onum) total_order from orders where Odate like '1990-10-03';
+
+-----------------------------------------------------------------------------------------
+
+2) Write a query that counts the number of different non-NULL city values in the
+	Customers table.
+
+ans)->	mysql> select count(*) from customers where City = null;
+
+------------------------------------------------------------------------------------
+
+3) Write a query that selects each customer’s smallest order.
+
+ans)->	mysql> select min(Amt) as 'smallest order', Cnum from orders group by Cnum;
+
+---------------------------------------------------------------------------------------
+
+4) Write a query that selects the first customer, in alphabetical order, whose name
+	begins with G.
+
+ans)->	mysql> select * from customers where Cname like 'G%';
+
+------------------------------------------------------------------------------------
+
+5) Write a query that selects the highest rating in each city.
+
+ans)->	mysql> select max(Rating) as 'Highest Rattings', City from customers group by City;
+
+----------------------------------------------------------------------------------------------
+
+6) Write a query that counts the number of salespeople registering orders for each
+	day. (If a salesperson has more than one order on a given day, he or she should be
+	counted only once.).
+
+ans)->	mysql> select count(Odate) as 'Total' , Odate from orders group by Odate;
+
+-------------------------------------------------------------------------------------------

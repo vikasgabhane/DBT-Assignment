@@ -1,0 +1,184 @@
+			
+			EXERCISE 1 
+
+
+Q1)	Create the table SEMP with the following structure:-
+	EMPNO		CHAR(4)
+	EMPNAME		CHAR(20)
+	BASIC		FLOAT(9,2)
+	DEPTNO		CHAR(2)
+	DEPTHEAD	CHAR(4)
+	
+	
+ans)->	CREATE TABLE IF NOT EXISTS SEMP (
+	EMPNO CHAR(4),
+	EMPNAME CHAR(20),
+	BASIC FLOAT(9,2),
+	DEPTNO CHAR(2),
+	DEPTHEAD CHAR(4)
+	);
+
+---------------------------------------------------------------------
+
+Q2)	Create the table SDEPT with the following structure:-
+
+	DEPTNO		CHAR(2)
+	DEPTNAME	CHAR(15)
+
+ans)->	mysql> CREATE TABLE IF NOT EXISTS SDEPT( DEPTNO CHAR(2), DEPTNAME CHAR(15) );
+
+
+--------------------------------------------------------------------------------
+
+Q3) 	Insert into the SDEPT table the following values:-
+	
+	10, Development
+	20, Training
+	
+ans)->	mysql> INSERT INTO SDEPT  VALUES ('10','Development'),('20','Training');
+
+--------------------------------------------------------------------------------
+
+Q4)->	Insert into the SEMP table the following values:-
+
+	0001, SUNIL, 6000, 10
+	0002, HIREN, 8000, 20
+	0003, ALI, 4000, 10, 0001
+	0004, GEORGE, 6000, 0002
+
+ans)->	mysql> INSERT INTO SEMP VALUES 
+	(0001,'SUNIL',6000,10,NULL),
+	(0002,'HIREN',8000,20,NULL),
+	(0003,'ALI',4000,10,0001),
+	(0004,'GEORGE',	6000,0002,NULL);
+
+------------------------------------------------------------------------------
+==============================================================================
+	mysql> create table if not exists SUPPLIER(
+    		-> `S#` char(4),
+    		-> Sname varchar(25),
+    		-> Status int,
+    		-> City char(15)
+    		-> );
+
+
+
+	mysql> insert into SUPPLIER 
+    		-> values ('S1','vikas',10,'London'),('S2','Vipul',20,'Paris'),
+    		-> ('S3','mahesh',30,'Athens'),('S4','chetan',40,'Boston'),
+    		-> ('S5','Tony',60,'Sydeny'),('S6','Killer',50,'New York');
+
+
+	select * from SUPPLIER;
+
+	create table if not exists PARTS(
+		`P#` char(4),
+		Pname varchar(25),
+		Color varchar(25),
+		Weight float(5,2),
+		City char(15)
+		);
+
+	mysql> insert into PARTS
+	    -> 	values ('P1','part a','blue',56.9,'London'),('P2','part b','green',67.4,'Paris'),
+	    ->         ('P3','part c','red',34.00,'Athens'),('P4','part d','yellow',78.98,'Boston'),
+	    ->         ('P5','part e ','green',34.65,'Sydeny'),('P6','part f','black',54.87,'New York');
+
+
+	select * from PARTS;
+
+
+	mysql> create table if not exists PROJECTS(
+    	-> `J#` char(4),
+    	-> Jname varchar(25),
+    	-> City char(15)
+    	-> );
+
+
+	mysql> insert into PROJECTS
+    	-> values ('J1','iNSCRIBE MESSENGER','London'),('J2','INCEPTION','Paris'),
+    	->         ('J3','ADS','Athens'),('J4','LMS','Boston'),
+    	->         ('J5','BANK MANAGMENT ','Sydeny'),('J6','ALS','New York');
+
+
+	mysql> SELECT * FROM PROJECTS;   
+
+	mysql> create table SPJ (`S#` char(4), `P#` char(4), `J#` char(4), Qty int);
+
+	mysql> insert into SPJ values('S1','P1','J1',10), ('S2','P2','J2',20), ('S3','P3','J3',30), ('S4','P4','J4',40), ('S5','P5','J5',50), 		('S6','P6','J6',60);
+
+	mysql> select * from SPJ;
+===============================================================================
+
+
+Q5)Display all the data from the S table.
+
+ans)->	mysql> Select * from SUPPLIER;
+
+-----------------------------------------------------------------------------
+
+Q6) Display only the S# and SNAME fields from the S table.
+
+ans)->	mysql> select `S#`, Sname from SUPPLIER;
+
+------------------------------------------------------------------------------
+
+Q7) Display the PNAME and COLOR from the P table for the CITY=”London”.
+
+ans)->	mysql> select Pname,Color from PARTS where city= 'London';
+
+-------------------------------------------------------------------------------
+
+Q8) Display all the Suppliers from London.
+
+ans)->	mysql> select * from SUPPLIER where city = 'London';
+
+---------------------------------------------------------------------------------
+
+Q9) Display all the Suppliers from Paris or Athens.
+
+ans)->	mysql> select * from SUPPLIER where city = 'Paris' OR city='Athens';
+
+----------------------------------------------------------------------------------
+
+Q10) Display all the Projects in Athens.
+
+ans)->	mysql> Select * from PROJECTS where city = 'Athens';
+
+-----------------------------------------------------------------------------------
+
+Q11) Display all the Partnames with the weight between 12 and 14 (inclusive of both).
+
+ans)->	mysql> select * from PARTS where weight >=12 and  weight<=14;
+
+
+-------------------------------------------------------------------------------------
+
+Q12) Display all the Suppliers with a Status greater than or equal to 20.
+
+ans)->	mysql> select * from SUPPLIER where `Status` >= 20 ; 
+
+--------------------------------------------------------------------------------------
+
+Q13) Display all the Suppliers except the Suppliers from London.
+
+ans)->	mysql> select * from SUPPLIER where City != 'London';
+
+
+-------------------------------------------------------------------------------------
+	
+Q14) Display only the Cities from where the Suppliers come from.
+
+ans)->	mysql> select City from SUPPLIER;
+
+
+---------------------------------------------------------------------------------
+
+Q15) Assuming that the Part Weight is in GRAMS, display the same in MILLIGRAMS and KILOGRAMS.
+
+ans)->	mysql> select Weight as `Weight in grams`,Weight*1000 AS `weight in milligrams`, Weight/1000 As `Weight in killograms` from PARTS;
+
+
+------------------------------------------------------------------------------------
+	
+

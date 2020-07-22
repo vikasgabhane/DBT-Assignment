@@ -1,0 +1,93 @@
+		SQL Exercise 4
+
+-------------------------------------------------------------------
+1. Display the minimum Status in the Supplier table.
+
+ans)->	mysql> select min(Status) from SUPPLIER;
+
+-----------------------------------------------------------------------
+
+2. Display the maximum Weight in the Parts table.
+
+ans)->	mysql> select max(Weight) from PARTS;
+
+-------------------------------------------------------------------------
+
+3. Display the average Weight of the Parts.
+
+ans)->	mysql> select avg(Weight) from PARTS;
+
+------------------------------------------------------------------------------
+
+4. Display the total Quantity sold for part ‘P1’.
+
+ans)->	mysql> select Qty from SPJ where `p#`='p1';
+
+--------------------------------------------------------------------------------
+5. Display the total Quantity sold for each part.
+
+ans)->	mysql> select `P#`,Qty from SPJ;
+
+--------------------------------------------------------------------------------------
+
+6. Display the average Quantity sold for each part.
+
+ans)->	mysql> select avg(Qty) from SPJ;
+
+-------------------------------------------------------------------------------------
+
+7. Display the maximum Quantity sold for each part, provided the maximum Quantity
+	is greater than 800.
+
+ans)->	mysql> select max(Qty) as 'Max Qty' from SPJ where 'Max Qty' > 800;
+
+-------------------------------------------------------------------------------
+
+8. Display the Status and the count of Suppliers with that Status.
+
+ans)->	mysql> select Status, count(`S#`) 'Count' from SUPPLIER group by Status;
+
+-----------------------------------------------------------------------------
+
+9. Display the count of Projects going on in different cities.
+
+ans)->	mysql> select count(City) from PROJECTS group by City;
+
+-------------------------------------------------------------------------
+
+10. What is the difference between COUNT(Status) and COUNT(*) ?
+
+ans)->	COUNT(*) counts the rows in your table.
+
+	COUNT(Status) counts the entries in a column - ignoring null values.
+
+	e.g.-> mysql> select count(Status) as 'Count Status', count(*) as 'Count *' from SUPPLIER;
+	
+	+--------------+---------+
+	| Count Status | Count * |
+	+--------------+---------+
+	|            6 |       6 |
+	+--------------+---------+
+
+
+-------------------------------------------------------------------------------
+
+11. Display the Status and the Count of Suppliers with that Status in the following format
+	as shown below:-
+	Status		Count
+	Ten		1
+	Twenty		2
+	Thirty		3
+
+ans)-> 	    mysql> select case 
+	    -> when Status =10 then 'Ten'
+	    -> when Status =20 then 'Twenty'
+	    -> when Status =30 then 'Thirty'
+	    -> When Status =40 then 'Forty'
+	    -> when Status =50 then 'Fifty'
+	    -> When Status =60 then 'Sixty'
+	    -> else 'others'
+	    -> end , count(Status) as 'Count'
+	    -> from SUPPLIER group by Status;
+
+---------------------------------------------------------------------------------------------------
