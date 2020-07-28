@@ -1,0 +1,165 @@
+
+		SQL Exercise 5
+-----------------------------------------------------------------------
+1. Display the Supplier name and the Quantity sold.
+
+ans)->	mysql> select Sname,Qty from SPJ,SUPPLIER where SUPPLIER.`S#`=SPJ.`S#`;
+	
+	+----------+------+
+	| Sname    | Qty  |
+	+----------+------+
+	| Shantanu |   10 |
+	| Vipul    |   20 |
+	| Aditya   |   30 |
+	| Soni     |   40 |
+	| Tony     |   50 |
+	| Killer   |   60 |
+	+----------+------+
+
+
+-----------------------------------------------------------------------
+2. Display the Part name and Quantity sold.
+
+ans)->	mysql> select Pname,Qty from SPJ,PARTS where PARTS.`P#`=SPJ.`P#`;
+	
+	+---------+------+
+	| Pname   | Qty  |
+	+---------+------+
+	| part a  |   10 |
+	| part b  |   20 |
+	| part c  |   30 |
+	| part d  |   40 |
+	| part e  |   50 |
+	| part f  |   60 |
+	+---------+------+
+
+
+--------------------------------------------------------------------------
+3. Display the Project name and Quantity sold.
+
+ans)->	mysql> select Jname,Qty from SPJ,PROJECTS where PROJECTS.`J#`=SPJ.`J#`;
+	
+	+--------------------+------+
+	| Jname              | Qty  |
+	+--------------------+------+
+	| iNSCRIBE MESSENGER |   10 |
+	| INCEPTION          |   20 |
+	| ADS                |   30 |
+	| LMS                |   40 |
+	| BANK MANAGMENT     |   50 |
+	| ALS                |   60 |
+	+--------------------+------+
+
+----------------------------------------------------------------------------------
+
+4. Display the Supplier name, Part name, Project name and Quantity sold.
+
+ans)->	mysql> select distinct Sname,Pname,Jname,Qty 
+	from SPJ,PROJECTS,PARTS,SUPPLIER 
+	where PROJECTS.`J#`=SPJ.`J#` 
+	and PARTS.`P#`=SPJ.`P#` 
+	and SUPPLIER.`S#`=SPJ.`S#`;
+
+	+----------+---------+--------------------+------+
+	| Sname    | Pname   | Jname              | Qty  |
+	+----------+---------+--------------------+------+
+	| Shantanu | part a  | iNSCRIBE MESSENGER |   10 |
+	| Vipul    | part b  | INCEPTION          |   20 |
+	| Aditya   | part c  | ADS                |   30 |
+	| Soni     | part d  | LMS                |   40 |
+	| Tony     | part e  | BANK MANAGMENT     |   50 |	
+	| Killer   | part f  | ALS                |   60 |	
+	+----------+---------+--------------------+------+	
+
+-------------------------------------------------------------------------------
+
+5. Display the Supplier name, Supplying Parts to a Project in the same City.
+
+ans)->	mysql> select distinct Sname,PARTS.City 
+	from SPJ,PROJECTS,PARTS,SUPPLIER 
+	where PROJECTS.`J#`=SPJ.`J#` 
+	and PARTS.`P#`=SPJ.`P#` 
+	and SUPPLIER.`S#`=SPJ.`S#` 
+	and PARTS.City=PROJECTS.City;
+
+	+----------+----------+
+	| Sname    | City     |
+	+----------+----------+
+	| Shantanu | London   |
+	| Vipul    | Paris    |
+	| Aditya   | Athens   |
+	| Soni     | Boston   |
+	| Tony     | Sydeny   |
+	| Killer   | New York |
+	+----------+----------+
+
+-------------------------------------------------------------------------------
+
+6. Display the Part name that is ‘Red’ is color, and the Quantity sold.
+
+ans)->	mysql> select Pname,Qty from PARTS,SPJ 
+	where PARTS.Color='red' and PARTS.`P#`=SPJ.`P#`;
+	
+	+--------+------+
+	| Pname  | Qty  |
+	+--------+------+
+	| part c |   30 |
+	+--------+------+
+
+-------------------------------------------------------------------------------
+
+7. Display all the Quantity sold by Suppliers with the Status = 20.
+
+ans)->	mysql> select Sname,Qty from SUPPLIER,SPJ 
+	where SUPPLIER.Status=20 and SUPPLIER.`S#`=SPJ.`S#`;
+	
+	+-------+------+
+	| Sname | Qty  |
+	+-------+------+
+	| Vipul |   20 |
+	+-------+------+
+
+-----------------------------------------------------------------------------
+
+8. Display all the Parts and Quantity with a Weight > 14.
+
+ans)->	mysql> select Pname,Qty from PARTS,SPJ 
+	where PARTS.Weight > 14 and PARTS.`P#`=SPJ.`P#`;
+	
+	+---------+------+
+	| Pname   | Qty  |
+	+---------+------+
+	| part a  |   10 |
+	| part b  |   20 |
+	| part c  |   30 |
+	| part d  |   40 |
+	| part e  |   50 |
+	| part f  |   60 |
+	+---------+------+
+
+
+----------------------------------------------------------------------------
+9. Display all the Project names and City, which has bought more than 500 Parts.
+
+ans)->	mysql> select Jname,Qty from PROJECTS,SPJ 
+	where SPJ.Qty > 500 and PROJECTS.`J#`=SPJ.`J#`;
+
+	Empty set (0.00 sec)
+
+---------------------------------------------------------------------------------
+
+10. Display all the Part names and Quantity sold that have a Weight less than 15.
+
+ans)->	mysql> select Pname,Qty from PARTS,SPJ 
+	where PARTS.Weight < 15 and PARTS.`P#`=SPJ.`P#`;
+	Empty set (0.00 sec)
+
+
+------------------------------------------------------------------------------------
+11. Display all the Employee names and the name of their Managers.
+
+ans)->	select  b.ename as employee ,a.ename as manager
+	from emp a , emp b 
+	where b.mgr = a.empno ;
+
+---------------------------------------------------------------------------------------
