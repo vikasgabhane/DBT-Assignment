@@ -1,0 +1,78 @@
+	
+		Assignment – 13
+
+	Using the UNION clause.
+-----------------------------------------------------------------------------------
+1) Create a union of two queries that shows the names, cities, and ratings of all
+	customers. Those with rating of 200 or greater will also have the words “High
+	Rating”, while the others will have the words “Low Rating”.
+
+ans)->	mysql> select Cname, City, 'High Rating' Rating 
+	from customers 
+	where Rating >=200  
+	union 
+	select Cname, City, 'Low Rating' Rating 
+	from customers 
+	where Rating > 200;
+	
+	+----------+----------+-------------+
+	| Cname    | City     | Rating      |
+	+----------+----------+-------------+
+	| Giovanni | Rome     | High Rating |
+	| Liu      | San Jose | High Rating |
+	| Grass    | Berlin   | High Rating |
+	| Cisneros | San Jose | High Rating |
+	| Grass    | Berlin   | Low Rating  |
+	| Cisneros | San Jose | Low Rating  |
+	+----------+----------+-------------+
+
+
+---------------------------------------------------------------------------------------
+2) Write a command that produces the name and number of each salesperson and
+	each customer with more than one current order. Put the results in alphabetical
+	order.
+
+ans)->	mysql> select Snum, Sname,Cname 
+	from salespeople 
+	join customers using(Snum) 
+	where Snum in(select Snum from customers group by Snum 
+	having count(Snum)>1) 
+	order by Sname,Cname;
+	
+	+------+--------+---------+
+	| Snum | Sname  | Cname   |
+	+------+--------+---------+
+	| 1001 | Peel   | Clemens |
+	| 1001 | Peel   | Hoffman |
+	| 1002 | Serres | Grass   |
+	| 1002 | Serres | Liu     |
+	+------+--------+---------+
+
+------------------------------------------------------------------------------------------
+3) Form a union of three queries. Have the first select the snums of all salespeople in
+	San Jose; the second, the cnums of all customers in San Jose; and the third the
+	onums of all orders on October 3. Retain duplicates between the last two queries
+	but eliminate any redundancies between either of them and the first.
+	(Note: in the sample tables as given, there would be no such redundancy. This is
+	besides the point.)
+
+ans)->	mysql> select Snum 
+	from salespeople 
+	where City='San Jose'  
+	union 
+	select distinct Snum 
+	from orders 
+	where Snum 
+	in(select Snum rom orders 
+	where Odate='1990-10-03');
+	
+	+------+
+	| Snum |
+	+------+
+	| 1002 |
+	| 1001 |
+	| 1004 |
+	| 1007 |
+	+------+
+
+--------------------------------------------------------------------------------------

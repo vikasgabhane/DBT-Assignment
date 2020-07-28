@@ -1,0 +1,54 @@
+		
+		Assignment – 11
+	
+		Subqueries.
+----------------------------------------------------------------------------------
+
+1) Write a query that uses a subquery to obtain all orders for the customer named
+	Cisneros. Assume you do not know his customer number (cnum).
+
+ans)->	mysql> select Onum as 'All Orders',Cnum 
+	from orders 
+	where Cnum = (select Cnum from customers 
+	where Cname ='Cisneros');
+	
+	+------------+------+
+	| All Orders | Cnum |
+	+------------+------+
+	|       3001 | 2008 |
+	|       3006 | 2008 |
+	+------------+------+
+
+--------------------------------------------------------------------------------
+2) Write a query that produces the names and ratings of all customers who have
+	above-average orders.
+
+ans)->	mysql> select Cname, Rating from customers
+    	where Cnum in (select Cnum from orders 
+	where Amt >(select avg(Amt) from orders));
+	
+	+---------+--------+
+	| Cname   | Rating |
+	+---------+--------+
+	| Liu     |    200 |
+	| Clemens |    100 |
+	+---------+--------+
+
+
+------------------------------------------------------------------------------
+3) Write a query that selects the total amount in orders for each salesperson for
+	whom this total is greater than the amount of the largest order in the table.
+
+ans)->	mysql> select sum(Amt)as 'Total' 
+	from orders group by Snum
+	having Total > (select max(Amt) from orders);
+	
+	+----------+
+	| Total    |
+	+----------+
+	| 15382.07 |
+	+----------+
+
+
+-------------------------------------------------------------------------------------
+

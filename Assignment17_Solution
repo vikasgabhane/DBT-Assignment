@@ -1,0 +1,85 @@
+
+		Assignment – 17
+
+	Constraining the Values of your data.
+
+-----------------------------------------------------------------------------------
+
+1) Create the Orders table so that all onum values as well as all combinations of
+	cnum and snum are different from one another, and so that NULL values are
+	excluded from the date field.
+
+ans)->	mysql> create table orders1
+	(
+	Onum int(4),
+	Cnum int(4),
+	Snum int(4),
+	Odate date NOT NULL,
+	PRIMARY KEY(Onum,Snum,Cnum)
+	);
+	
+	mysql> desc orders1;
+	
+	+-------+------+------+-----+---------+-------+
+	| Field | Type | Null | Key | Default | Extra |
+	+-------+------+------+-----+---------+-------+
+	| Onum  | int  | NO   | PRI | NULL    |       |
+	| Cnum  | int  | NO   | PRI | NULL    |       |
+	| Snum  | int  | NO   | PRI | NULL    |       |
+	| Odate | date | NO   |     | NULL    |       |
+	+-------+------+------+-----+---------+-------+
+
+-------------------------------------------------------------------------------------
+
+2) Create the Salespeople table so that the default commission is 10% with no
+	NULLS permitted, snum is the primary key, and all names fall alphabetically
+	between A and M, inclusive (assume all names will be uppercase).
+
+ans)->	mysql> create table salespeople1
+	(
+	Comm float(7,2) default 10 NOT NULL,
+	Snum int(4) PRIMARY KEY,
+	Sname varchar(20) check(substr(upper(Sname),1,1) BETWEEN 'A' and 'M')
+	);
+
+	mysql> desc salespeople1;
+	
+	+-------+-------------+------+-----+---------+-------+
+	| Field | Type        | Null | Key | Default | Extra |
+	+-------+-------------+------+-----+---------+-------+
+	| Comm  | float(7,2)  | NO   |     | 10.00   |       |
+	| Snum  | int         | NO   | PRI | NULL    |       |
+	| Sname | varchar(20) | YES  |     | NULL    |       |
+	+-------+-------------+------+-----+---------+-------+
+
+
+-------------------------------------------------------------------------------------
+
+3) Create the Orders table, making sure that the onum is greater than the cnum, and
+	the cnum is greater that the snum. Allow no NULLS in any of these three fields.
+
+ans)->	mysql> create table orders2
+	(
+	Onum int(4),
+	Amt float(7,2),
+	Odate date,
+	Cnum int(4),
+	Snum int(4),
+	CONSTRAINT O_C_S_num check(Onum>Cnum and Cnum>Snum)
+	);
+
+
+	mysql> desc orders2;
+
+	+-------+------------+------+-----+---------+-------+
+	| Field | Type       | Null | Key | Default | Extra |
+	+-------+------------+------+-----+---------+-------+
+	| Onum  | int        | YES  |     | NULL    |       |
+	| Amt   | float(7,2) | YES  |     | NULL    |       |
+	| Odate | date       | YES  |     | NULL    |       |
+	| Cnum  | int        | YES  |     | NULL    |       |
+	| Snum  | int        | YES  |     | NULL    |       |
+	+-------+------------+------+-----+---------+-------+
+
+
+--------------------------------------------------------------------------------------
