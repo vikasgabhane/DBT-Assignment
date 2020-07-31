@@ -1,0 +1,91 @@
+
+		Assignment – 19
+
+		Views.
+------------------------------------------------------------------------------
+
+1) Create a view that shows all of the customers who have the highest ratings.
+
+ans)->	mysql> create view cust_rate_view 
+	as  
+	select * from customers 
+	where Rating = (select max(Rating) from customers);
+
+	mysql> select * from cust_rate_view;
+
+	+------+----------+----------+--------+------+
+	| Cnum | Cname    | City     | Rating | Snum |
+	+------+----------+----------+--------+------+
+	| 2002 | Giovanni | Rome     |    300 | 1003 |
+	| 2004 | Grass    | Berlin   |    300 | 1004 |
+	| 2008 | Cisneros | San Jose |    300 | 1007 |
+	+------+----------+----------+--------+------+
+
+
+------------------------------------------------------------------------------
+2) Create a view that shows the number of salespeople in each city.
+
+ans)->	mysql> create view sales_city_view 
+	as 
+	select City,count(City) as 'Total Salespeople' 
+	from salespeople group by City; 
+
+
+	mysql> select * from sales_city_view;
+
+	+-----------+-------------------+
+	| City      | Total Salespeople |
+	+-----------+-------------------+
+	| London    |                 2 |
+	| San Jose  |                 2 |
+	| New York  |                 1 |
+	| Barcelona |                 1 |
+	+-----------+-------------------+
+
+-----------------------------------------------------------------------------------
+
+3) Create a view that shows the average and total orders for each salesperson after
+	his or her name. Assume all names are unique.
+
+ans)->	mysql> create view sales_orders_view 
+	as 
+	select salespeople.Sname,avg(orders.Amt), count(orders.Snum) 
+	from orders,salespeople 
+	where salespeople.Snum=orders.Snum 
+	group by salespeople.Sname;
+
+	mysql> select * from sales_orders_view;
+	
+	+---------+-----------------+--------------------+
+	| Sname   | avg(orders.Amt) | count(orders.Snum) |
+	+---------+-----------------+--------------------+
+	| Peel    |      767.190002 |                  1 |
+	| Serres  |     2182.050049 |                  3 |
+	| Axelrod |     1713.229980 |                  1 |
+	| Motika  |     1900.099976 |                  1 |
+	| Rifkin  |      558.425017 |                  2 |
+	+---------+-----------------+--------------------+
+---------------------------------------------------------------------------------------
+
+4) Create a view that shows each salesperson with multiple customers.
+
+ans)->	mysql> create view sales_cust_view2 
+	as
+	select salespeople.Sname 'Salespeoples', customers.Cname 'Customers' 
+	from customers,salespeople 
+	where customers.Snum = salespeople.Snum;
+
+	mysql> select * from sales_cust_view2;
+	
+	+--------------+-----------+
+	| Salespeoples | Customers |
+	+--------------+-----------+
+	| Peel         | Hoffman   |
+	| Axelrod      | Giovanni  |
+	| Motika       | Liu       |
+	| Motika       | Grass     |
+	| Motika       | Pereira   |
+	| Rifkin       | Cisneros  |
+	+--------------+-----------+
+
+-----------------------------------------------------------------------------------------
